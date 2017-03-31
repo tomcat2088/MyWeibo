@@ -85,16 +85,3 @@ export default class RefreshLoadMoreListView extends Component {
         )
     }
 }
-const rowPadding = 10;
-const styles = StyleSheet.create({
-    row: {
-        padding:rowPadding,
-    },
-    rowInner: {
-        borderWidth: 1,
-        borderColor: '#dedede'
-    },
-    loadMore: {
-
-    }
-})

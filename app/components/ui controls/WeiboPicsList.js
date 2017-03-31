@@ -10,7 +10,8 @@ import {
     Image,
     View,
     RefreshControl,
-    ActivityIndicator
+    ActivityIndicator,
+    TouchableOpacity
 } from 'react-native'
 
 import RefreshLoadMoreListView from './RefreshLoadMoreListView'
@@ -56,21 +57,45 @@ export default class WeiboPicsList extends Component {
     }
 
     _renderRow(data) {
-        let screenWidth = window.width;
+        let screenWidth = window.width - 2;
         let picWidth = screenWidth - 2 * rowPadding;
         let picHeight = parseFloat(data.wpic_m_height) * picWidth / parseFloat(data.wpic_m_width);
 
         let imgSource = {
-            uri: ''//data.wpic_large
+            uri: data.wpic_large
         }
         return (
             <View style={styles.row}>
                 <View style={styles.rowInner}>
-                    <Image style={{ width: picWidth, height: picHeight, backgroundColor: "#ddd" }} source={imgSource}></Image>
-                    <Text style={{ paddingTop:10, paddingBottom:10 }}>{data.wbody}</Text>
+                    <Image style={{ width: picWidth, height: picHeight }} source={imgSource}></Image>
+                    <View style={{ padding:8, borderTopColor: '#dedede', borderTopWidth:1 }}>
+                        { this._renderBody(data.wbody) }
+                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between'}}>
+                            <TouchableOpacity style={ styles.smallButton }>
+                                <Text style={ styles.smallButtonText }>赞 {parseInt(data.likes)}</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={ this._gotoComment.bind(this) } style={ styles.smallButton } >
+                                <Text style={ styles.smallButtonText }>评论 {data.comments}</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                 </View>
             </View>
         )
+    }
+
+    _renderBody(bodyStr) {
+        if (bodyStr.trim().length > 0) {
+            return (
+                <Text style={{ marginBottom:10 }}>{ bodyStr.trim() }</Text>
+            )
+        }
+    }
+
+    _gotoComment() {
+        if (this.props.onGotoComment) {
+            this.props.onGotoComment();
+        }
     }
 }
 const rowPadding = 10;
@@ -80,9 +105,17 @@ const styles = StyleSheet.create({
     },
     rowInner: {
         borderWidth: 1,
-        borderColor: '#dedede'
+        borderColor: '#dedede',
+        backgroundColor: '#fff',
     },
-    loadMore: {
-
+    smallButton: {
+        borderWidth: 1,
+        borderColor: '#dedede',
+        minWidth:50,
+        padding:3
+    },
+    smallButtonText: {
+        fontSize: 12,
+        color: '#777777'
     }
 })

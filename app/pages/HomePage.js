@@ -15,6 +15,9 @@ import {
     ListView
 } from 'react-native'
 
+import SegmentedControlTab from 'react-native-segmented-control-tab'
+import HideableView from 'react-native-hideable-view';
+
 import WeiboPicsList from '../components/ui controls/WeiboPicsList'
 import WeiboBanner from '../components/ui controls/WeiboBanner'
 
@@ -23,34 +26,71 @@ export default class HomePage extends Component {
     static navigationOptions = {
         title: '首页',
     };
+
     constructor(props) {
         super(props);
         this.state = {
-            banners: [
-                'https://images.unsplash.com/photo-1441742917377-57f78ee0e582?h=1024',
-                'https://images.unsplash.com/photo-1441716844725-09cedc13a4e7?h=1024',
-                'https://images.unsplash.com/photo-1441448770220-76743f9e6af6?h=1024',
-                'https://images.unsplash.com/photo-1441260038675-7329ab4cc264?h=1024',
-                'https://images.unsplash.com/photo-1441126270775-739547c8680c?h=1024',
-                'https://images.unsplash.com/photo-1440964829947-ca3277bd37f8?h=1024',
-                'https://images.unsplash.com/photo-1440847899694-90043f91c7f9?h=1024'
-            ]
+            picsStore: new WeiboStore(WeiboStore.CategoryPics),
+            girlsStore: new WeiboStore(WeiboStore.CategoryGirls),
+            selectedTabIndex: 0,
         }
     }
 
     render() {
-        const {navigate} = this.props.navigation;
         return (
             <View style={{ flex: 1 }}>
-                {/*<WeiboBanner images={this.state.banners} autoPlay={true} isLoop={true}></WeiboBanner>*/}
-                <WeiboPicsList
-                    rows={ this.state.rows }
-                    weiboStore={new WeiboStore()}></WeiboPicsList>
+                <SegmentedControlTab
+                    tabsContainerStyle={ styles.segmentBar }
+                    values={['趣图', 'Girls']}
+                    onTabPress= {index => {
+                        this.setState( { selectedTabIndex: index } );
+                        this.forceUpdate();
+                    } }
+                />
+                <View>
+                    <View style={{ backgroundColor:'#300' }}></View>
+                    <View style={{ backgroundColor:'#330' }}></View>
+                    {/*<HideableView visible={ this.state.selectedTabIndex == 0 } style={{ position: 'relative' }}>*/}
+                        {/*<WeiboPicsList*/}
+                            {/*weiboStore={ this.state.picsStore }*/}
+                            {/*onGotoComment={ this._onGotoComment.bind(this) }></WeiboPicsList>*/}
+                    {/*</HideableView>*/}
+                    {/*<HideableView visible={ this.state.selectedTabIndex == 1 } style={{ position: 'relative'}}>*/}
+                        {/*<WeiboPicsList*/}
+                            {/*weiboStore={ this.state.girlsStore }*/}
+                            {/*onGotoComment={ this._onGotoComment.bind(this) }></WeiboPicsList>*/}
+                    {/*</HideableView>*/}
+                </View>
             </View>
         )
+    }
+
+    _onGotoComment() {
+        const { navigate } = this.props.navigation;
+        navigate('Comment', { comment: '2' });
+    }
+
+    _selectTab(tabIndex) {
+        console.warn(tabIndex);
+        if (tabIndex == 0) {
+            return (
+                <WeiboPicsList
+                    weiboStore={ this.state.picsStore }
+                    onGotoComment={ this._onGotoComment.bind(this) }></WeiboPicsList>
+            )
+        } else if (tabIndex == 1) {
+            return (
+
+            <Text>Hello</Text>
+                    )
+        }
     }
 }
 
 const styles = StyleSheet.create({
-
+    segmentBar: {
+        marginLeft:10,
+        marginRight:10,
+        marginTop: 5
+    }
 })

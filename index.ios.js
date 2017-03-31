@@ -15,14 +15,14 @@ import {
 } from 'react-navigation'
 
 import HomePage from './app/pages/HomePage'
-import DetailPage from './app/pages/DetailPage'
+import CommentPage from './app/pages/CommentPage'
 
 const App = StackNavigator({
     Main: {
         screen: HomePage
     },
-    Detail: {
-        screen: DetailPage
+    Comment: {
+        screen: CommentPage
     }
 })
 

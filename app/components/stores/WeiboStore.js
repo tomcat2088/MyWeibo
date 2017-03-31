@@ -16,9 +16,11 @@ type WeiboStoreParam = {
 }
 
 class WeiboStore {
-    constructor() {
+    static CategoryPics = 'weibo_pics';
+    static CategoryGirls = 'weibo_girls';
+    constructor(category) {
         this.apiVersion = 20201;
-        this.Category_PICS = 'weibo_pics'
+        this.Category_PICS = category;
     }
 
     fetchWeiboPics(timestamp: number, pageSize: number) {

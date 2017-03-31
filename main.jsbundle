@@ -54018,7 +54018,7 @@ function keyedDictionaryFromArray(arr) {
 
 module.exports = ViewPagerDataSource;
 }, 469, null, "react-native-viewpager/ViewPagerDataSource.js");
-__d(/* MyWeibo/app/pages/DetailPage.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
+__d(/* MyWeibo/app/pages/CommentPage.js */function(global, require, module, exports) {Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
@@ -54076,7 +54076,7 @@ HomePage.navigationOptions = {
     title: '详情'
 };
 exports.default = HomePage;
-}, 470, null, "MyWeibo/app/pages/DetailPage.js");
+}, 470, null, "MyWeibo/app/pages/CommentPage.js");
 ;require(216);
 ;require(0);
 //# sourceMappingURL=/index.ios.map
