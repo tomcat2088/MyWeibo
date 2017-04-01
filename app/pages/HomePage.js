@@ -41,25 +41,23 @@ export default class HomePage extends Component {
             <View style={{ flex: 1 }}>
                 <SegmentedControlTab
                     tabsContainerStyle={ styles.segmentBar }
-                    values={['趣图', 'Girls']}
+                    values={['Images-1', 'Images-2']}
                     onTabPress= {index => {
                         this.setState( { selectedTabIndex: index } );
                         this.forceUpdate();
                     } }
                 />
-                <View>
-                    <View style={{ backgroundColor:'#300' }}></View>
-                    <View style={{ backgroundColor:'#330' }}></View>
-                    {/*<HideableView visible={ this.state.selectedTabIndex == 0 } style={{ position: 'relative' }}>*/}
-                        {/*<WeiboPicsList*/}
-                            {/*weiboStore={ this.state.picsStore }*/}
-                            {/*onGotoComment={ this._onGotoComment.bind(this) }></WeiboPicsList>*/}
-                    {/*</HideableView>*/}
-                    {/*<HideableView visible={ this.state.selectedTabIndex == 1 } style={{ position: 'relative'}}>*/}
-                        {/*<WeiboPicsList*/}
-                            {/*weiboStore={ this.state.girlsStore }*/}
-                            {/*onGotoComment={ this._onGotoComment.bind(this) }></WeiboPicsList>*/}
-                    {/*</HideableView>*/}
+                <View style={{flex:1 }}>
+                    <View style={{ flex: this.state.selectedTabIndex == 0 ? 1 : 0 }}>
+                        <WeiboPicsList
+                            weiboStore={ this.state.picsStore }
+                            onGotoComment={ this._onGotoComment.bind(this) }></WeiboPicsList>
+                    </View>
+                    <View style={{ flex:this.state.selectedTabIndex == 1 ? 1 : 0 }}>
+                        <WeiboPicsList
+                            weiboStore={ this.state.girlsStore }
+                            onGotoComment={ this._onGotoComment.bind(this) }></WeiboPicsList>
+                    </View>
                 </View>
             </View>
         )
@@ -80,9 +78,8 @@ export default class HomePage extends Component {
             )
         } else if (tabIndex == 1) {
             return (
-
-            <Text>Hello</Text>
-                    )
+                <Text>Hello</Text>
+            )
         }
     }
 }

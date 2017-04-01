@@ -62,7 +62,7 @@ export default class WeiboPicsList extends Component {
         let picHeight = parseFloat(data.wpic_m_height) * picWidth / parseFloat(data.wpic_m_width);
 
         let imgSource = {
-            uri: data.wpic_large
+            uri: 'http://vignette3.wikia.nocookie.net/nintendo/images/d/d9/Mario_%28New_Super_Mario_Bros._2%29.png/revision/latest?cb=20120709145048&path-prefix=en'//data.wpic_large
         }
         return (
             <View style={styles.row}>
